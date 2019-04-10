@@ -12,7 +12,7 @@ router.get('/getall', (req, res) => {
         .catch(err => res.status(500).json('no users found', err))
 })
 
-router.post('/createlog', (req, res) => {
+router.post('/create', (req, res) => {
     Log.create({
         description: req.body.description,
         definition: req.body.definition,

@@ -20,7 +20,7 @@ class Signup extends React.Component {
             this.handleValidation();
         } else {
 
-            fetch('http://localhost:3000/api/user/createuser', {
+            fetch('http://localhost:3000/user/signup', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'

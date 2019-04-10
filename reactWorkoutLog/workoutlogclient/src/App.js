@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-//import './App.css';
-import SiteBar from './home/Navbar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './App.css';
 import Auth from './auth/Auth';
+import Splash from './home/Splash';
+import NavBar from './home/Navbar';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -24,19 +25,37 @@ class App extends Component {
     this.setState({ sessionToken: token })
   }
 
-  logout = () =>{
+  logout = () => {
     this.setState({
       sessionToken: ''
     });
     localStorage.clear();
   }
 
+  protectedViews = () => {
+    if (this.state.sessionToken === localStorage.getItem('token')) {
+      return (
+        <Switch>
+          <Route path='/' exact>
+            <Splash sessionToken={this.state.sessionToken} />
+          </Route>
+        </Switch>
+      )
+    } else {
+      return (
+        <Route path='/auth' >
+          <Auth setToken={this.setSessionState} />
+        </Route>
+      )
+    }
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-          <SiteBar clickLogout={this.logout}/>
-          <Auth setToken={this.setSessionState} />
+          <NavBar clickLogout={this.logout} />
+          {this.protectedViews()}
         </div>
       </Router>
     );

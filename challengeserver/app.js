@@ -11,6 +11,6 @@ app.use(require('./middleware/headers'))
 
 app.use('/user', user);
 app.use(require('./middleware/validate-session'))
-app.use('/auth', log);
+app.use('/api', log);
 
 app.listen(3000, function(){console.log('app is listening on 3000')})

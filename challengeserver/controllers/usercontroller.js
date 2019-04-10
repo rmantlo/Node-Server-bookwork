@@ -5,9 +5,9 @@ let User = sequelize.import('../models/users')
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
 
-router.post('/create', (req, res) => {
-    let userName = req.body.username;
-    let password = req.body.password;
+router.post('/signup', (req, res) => {
+    let userName = req.body.user.username;
+    let password = req.body.user.password;
     User.create({
         username: userName,
         passwordhash: bcrypt.hashSync(password, 10)

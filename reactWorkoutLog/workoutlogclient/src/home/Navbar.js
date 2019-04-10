@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Button } from 'reactstrap';
 
 
-class SiteBar extends React.Component {
+class NavBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,4 +34,4 @@ class SiteBar extends React.Component {
     }
 }
 
-export default SiteBar;
+export default NavBar;

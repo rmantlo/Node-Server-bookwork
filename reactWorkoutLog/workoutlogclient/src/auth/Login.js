@@ -19,7 +19,7 @@ class Login extends React.Component {
         if (!this.state.username || !this.state.password) {
             this.handleValidation();
         } else {
-            fetch('http://localhost:3000/api/user/signin', {
+            fetch('http://localhost:3000/user/signin', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
