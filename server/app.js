@@ -1,13 +1,13 @@
-require('dotenv').config();
+require('./node_modules/dotenv/lib/main').config();
 
-let express = require('express');
+let express = require('./node_modules/express');
 let app = express();
 let test = require('./controllers/testcontroller');
 let authTest = require('./controllers/authtestcontroller');
 let user = require('./controllers/usercontroller');
 
 let sequelize = require('./db');
-let bodyParser = require('body-parser');
+let bodyParser = require('./node_modules/body-parser');
 
 sequelize.sync(); // tip: {force: true} for resetting tables
 

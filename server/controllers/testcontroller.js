@@ -1,4 +1,4 @@
-let express = require('express');
+let express = require('../node_modules/express');
 let router = express.Router();
 let sequelize = require('../db');
 let TestModel = sequelize.import('../models/test')

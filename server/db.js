@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('./node_modules/sequelize');
 
 const sequelize = new Sequelize('workoutlog', 'postgres', 'awesome11', {
     host:'localhost',

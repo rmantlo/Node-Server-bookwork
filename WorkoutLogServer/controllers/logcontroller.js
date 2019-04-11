@@ -5,7 +5,7 @@ let User = require('../models/users');
 let Log = sequelize.import('../models/log');
 
 router.get('/getall', (req, res) => {
-    Log.findAll({ where: { owner: req.user.id } })
+    Log.findAll()
         .then(user => {
             res.status(200).json(user)
         })
@@ -14,9 +14,9 @@ router.get('/getall', (req, res) => {
 
 router.post('/create', (req, res) => {
     Log.create({
-        description: req.body.description,
-        definition: req.body.definition,
-        result: req.body.result,
+        description: req.body.log.description,
+        definition: req.body.log.definition,
+        result: req.body.log.result,
         owner: req.user.id
     })
         .then(
@@ -42,22 +42,22 @@ router.get('/:id', (req, res) => {
 
 router.put('/update/:id', (req, res) => {
     Log.update({
-        description: req.body.description,
-        definition: req.body.definition,
-        result: req.body.result
+        description: req.body.log.description,
+        definition: req.body.log.definition,
+        result: req.body.log.result
     },
         { where: { id: req.params.id } })
         .then(user => res.status(200).json({
-            description: req.body.description,
-            definition: req.body.definition,
-            result: req.body.result,
+            description: req.body.log.description,
+            definition: req.body.log.definition,
+            result: req.body.log.result,
             message: "log updated"
         }))
         .catch(err => res.status(500).json('log not updated'))
 })
 
 router.delete('/delete/:id', (req, res) => {
-    Log.destroy({ where: { id: req.params.id, owner: req.user.id } })
+    Log.destroy({ where: { id: req.params.id} })
         .then(function deleteSuccess(data) {
             res.status(200).json('log removed')
         }, function deleteError(err) {

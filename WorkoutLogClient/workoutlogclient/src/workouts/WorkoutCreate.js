@@ -30,7 +30,7 @@ export default class WorkoutCreate extends React.Component {
         })
             .then(res => res.json())
             .then(logData => {
-                this.props.updateWorkoutsArrays();
+                this.props.updateWorkoutsArray();
                 this.setState({
                     id: '',
                     results: '',

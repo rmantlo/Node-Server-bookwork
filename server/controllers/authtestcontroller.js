@@ -1,4 +1,4 @@
-let router = require('express').Router();
+let router = require('../node_modules/express').Router();
 let sequelize = require('../db')
 let User = sequelize.import('../models/users');
 let AuthTestModel = sequelize.import('../models/authtest');
