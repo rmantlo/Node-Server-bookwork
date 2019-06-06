@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { AuthContext } from './AuthContext';
 
 class Login extends React.Component {
     constructor(props) {
@@ -28,7 +29,8 @@ class Login extends React.Component {
             })
                 .then(response => response.json())
                 .then(data => {
-                    this.props.setToken(data.sessionToken)
+                    this.props.auth.setToken(data.sessionToken)
+                    console.log(data.sessionToken)
                 })
         }
     }
@@ -70,4 +72,8 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default props => (
+    <AuthContext.Consumer>
+        {auth => <Login {...props} auth={auth} />}
+    </AuthContext.Consumer>
+);

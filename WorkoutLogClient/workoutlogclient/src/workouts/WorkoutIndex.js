@@ -3,8 +3,9 @@ import { Container, Row, Col } from 'reactstrap';
 import WorkoutCreate from './WorkoutCreate';
 import WorkoutTable from './WorkoutTable';
 import WorkoutEdit from './WorkoutEdit';
+import { AuthContext } from '../auth/AuthContext';
 
-export default class WorkoutIndex extends React.Component {
+class WorkoutIndex extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,6 +17,8 @@ export default class WorkoutIndex extends React.Component {
 
     componentDidMount() {
         this.fetchWorkouts()
+        //console.log(this.props)
+        //console.log(this.props.auth.sessionToken)
     }
 
     fetchWorkouts = () => {
@@ -23,7 +26,7 @@ export default class WorkoutIndex extends React.Component {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": 'application/json',
-                "Authorization": this.props.token
+                "Authorization": this.props.auth.sessionToken
             })
         })
             .then(res => res.json())
@@ -38,7 +41,7 @@ export default class WorkoutIndex extends React.Component {
             method: 'DELETE',
             headers: {
                 "Content-Type": 'application/json',
-                "Authorization": this.props.token
+                "Authorization": this.props.auth.sessionToken
             },
             body: JSON.stringify({ log: { id: event.target.id } })
         })
@@ -50,7 +53,7 @@ export default class WorkoutIndex extends React.Component {
             method: 'PUT',
             headers: {
                 "Content-Type": 'application/json',
-                "Authorization": this.props.token
+                "Authorization": this.props.auth.sessionToken
             },
             body: JSON.stringify({ log: workout })
         })
@@ -58,7 +61,6 @@ export default class WorkoutIndex extends React.Component {
                 this.setState({ updatePressed: false });
                 this.fetchWorkouts();
             })
-        console.log('hello')
     }
     setUpdatedWorkout = (event, workout) => {
         this.setState({
@@ -74,7 +76,7 @@ export default class WorkoutIndex extends React.Component {
             <Container>
                 <Row>
                     <Col md='3'>
-                        <WorkoutCreate token={this.props.token} updateWorkoutsArray={this.fetchWorkouts} />
+                        <WorkoutCreate updateWorkoutsArray={this.fetchWorkouts} />
                     </Col>
                     <Col md='3'>
                         {workouts}
@@ -90,3 +92,8 @@ export default class WorkoutIndex extends React.Component {
     }
 }
 
+export default props => (
+    <AuthContext.Consumer>
+        {auth => <WorkoutIndex {...props} auth={auth} />}
+    </AuthContext.Consumer>
+);
