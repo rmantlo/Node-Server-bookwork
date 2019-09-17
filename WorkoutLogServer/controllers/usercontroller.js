@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let sequelize = require('../db');
-let User = sequelize.import('../models/users')
+let User = sequelize.import('../models/users');
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
 
@@ -9,7 +9,7 @@ router.post('/signup', (req, res) => {
     let userName = req.body.user.username;
     let password = req.body.user.password;
     User.create({
-        username: userName,
+        username: req.body.user.username,
         passwordhash: bcrypt.hashSync(password, 10)
     })
         .then(

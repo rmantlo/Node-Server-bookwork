@@ -1,11 +1,11 @@
 let express = require('express');
 let router = express.Router();
 let sequelize = require('../db');
-let User = require('../models/users');
+//let User = require('../models/users');
 let Log = sequelize.import('../models/log');
 
 router.get('/getall', (req, res) => {
-    Log.findAll()
+    Log.findAll({include: 'user'})
         .then(user => {
             res.status(200).json(user)
         })
@@ -17,7 +17,8 @@ router.post('/create', (req, res) => {
         description: req.body.log.description,
         definition: req.body.log.definition,
         result: req.body.log.result,
-        owner: req.user.id
+        owner: req.user.id,
+        userId: req.user.id
     })
         .then(
             function createSuccess(data) {
@@ -32,7 +33,8 @@ router.get('/:id', (req, res) => {
     Log.findOne({
         where: {
             id: req.params.id
-        }
+        },
+        include: 'user'
     })
         .then(user => {
             res.status(200).json(user)
